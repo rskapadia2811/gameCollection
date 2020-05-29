@@ -8,8 +8,6 @@ import {
   Easing,
 } from 'react-native';
 import GLOBAL from '../../GLOBAL';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import FastImage from 'react-native-fast-image';
 import {hp, wp} from '../Helpers/screenHelper';
 class HomeComponent extends Component {
@@ -35,7 +33,9 @@ class HomeComponent extends Component {
       });
     }
   };
-
+  goToHome2Component = () => {
+    this.props.navigation.navigate('Home2Component');
+  };
   render() {
     return (
       <GLOBAL>
@@ -55,11 +55,10 @@ class HomeComponent extends Component {
               resizeMode={FastImage.resizeMode.contain}
             />
           </Animated.View>
-          <TouchableOpacity style={{...Styles.startYourGameButton}}>
-            <Text
-              style={{
-                ...Styles.startYourGameText,
-              }}>
+          <TouchableOpacity
+            style={Styles.startYourGameButton}
+            onPress={() => this.goToHome2Component()}>
+            <Text style={Styles.startYourGameText}>
               A small gift for the love of my life
             </Text>
           </TouchableOpacity>
@@ -75,9 +74,8 @@ class HomeComponent extends Component {
             <FastImage
               source={require('../Assets/Images/mainBackground.jpg')}
               style={{
-                width: wp(80),
-                height: wp(80),
-                backgroundColor: 'green',
+                width: hp(30),
+                height: hp(30),
               }}
               resizeMode={FastImage.resizeMode.contain}
             />
@@ -112,8 +110,8 @@ const Styles = StyleSheet.create({
     width: wp(50),
   },
   happyBirthdayImage: {
-    width: wp(80),
-    height: wp(80),
+    width: hp(40),
+    height: hp(40),
     transform: [
       {
         rotateZ: 25,
@@ -128,7 +126,7 @@ const Styles = StyleSheet.create({
   },
   startYourGameButton: {
     backgroundColor: 'pink',
-    padding: hp(2),
+    padding: wp(3),
     alignItems: 'center',
     borderRadius: 50,
     borderColor: 'white',
@@ -141,14 +139,5 @@ const Styles = StyleSheet.create({
     color: 'rgb(221,87,146)',
   },
 });
-const mapStateToProps = (state) => {
-  return {
-    loading: state.utility.loading,
-  };
-};
 
-const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({}, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeComponent);
+export default HomeComponent;

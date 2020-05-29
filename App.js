@@ -7,21 +7,15 @@
  */
 
 import React from 'react';
-import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
-import createStore from './SRC/Redux';
+// import {Provider} from 'react-redux';
+// import {PersistGate} from 'redux-persist/integration/react';
+// import createStore from './SRC/Redux';
 import AppNavigator from './SRC/Navigation/AppNavigator';
 
-const {store, persistor} = createStore();
+// const {store, persistor} = createStore();
 
 const App: () => React$Node = () => {
-  return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <AppNavigator />
-      </PersistGate>
-    </Provider>
-  );
+  return <AppNavigator />;
 };
 
 export default App;

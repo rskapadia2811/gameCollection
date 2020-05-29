@@ -240,7 +240,12 @@ PODS:
     - React
   - RNScreens (2.7.0):
     - React
-  - RNVectorIcons (6.6.0):
+  - RNSound (0.11.0):
+    - React
+    - RNSound/Core (= 0.11.0)
+  - RNSound/Core (0.11.0):
+    - React
+  - RNSVG (12.1.0):
     - React
   - SDWebImage (5.7.4):
     - SDWebImage/Core (= 5.7.4)
@@ -284,7 +289,8 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - RNSound (from `../node_modules/react-native-sound`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -355,8 +361,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
-  RNVectorIcons:
-    :path: "../node_modules/react-native-vector-icons"
+  RNSound:
+    :path: "../node_modules/react-native-sound"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -393,11 +401,12 @@ SPEC CHECKSUMS:
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
   RNReanimated: 955cf4068714003d2f1a6e2bae3fb1118f359aff
   RNScreens: cf198f915f8a2bf163de94ca9f5bfc8d326c3706
-  RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
+  RNSound: c980916b596cc15c8dcd2f6ecd3b13c4881dbe20
+  RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   SDWebImage: 48b88379b798fd1e4298f95bb25d2cdabbf4deb3
   SDWebImageWebPCoder: 36f8f47bd9879a8aea6044765c1351120fd8e3a8
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: deb6803b1f84dfba0441d045aff9e81e833a9639
+PODFILE CHECKSUM: 2ee475521739fa5f0fd72973c8cd8ff09f2e5812
 
 COCOAPODS: 1.8.4

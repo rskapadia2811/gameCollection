@@ -4,52 +4,26 @@ import {
   Text,
   View,
   Dimensions,
+  Linking,
   ImageBackground,
-  Image,
   Animated,
   PanResponder,
 } from 'react-native';
-
+import PlacardJson from '../../../../plaCard.json';
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 import {hp, wp} from '../../../Helpers/screenHelper';
-const Users = [
-  {id: 1, message: 'Hi Bhakti'},
-  {id: 2, message: 'This is Awkward but bear with me'},
-  {id: 3, message: 'I have been thinking about us \n\n I know you always said'},
-  {id: 4, message: 'Marriage scares the fuck outta me !!!'},
-  {id: 5, message: 'And my married friends always said'},
-  {id: 6, message: 'Run, You fools!'},
-  {id: 7, message: 'So, I always Brushed it off....'},
-  {id: 8, message: 'Bitch Please, marriage is not for me'},
-  {id: 9, message: 'But one day i realized'},
-  {id: 10, message: 'Nobody makes me happy like you does '},
-  {
-    id: 11,
-    message:
-      'But nobody ever made me feel like that before so my brain said \n\n impossible!',
-  },
-  {
-    id: 12,
-    message:
-      'And realized that i do want to grow old with you , \n So my heart asked my Brain',
-  },
-  {id: 13, message: 'If you like it, why u not put ring on it'},
-  {id: 14, message: 'So i thought about it...'},
-  {id: 15, message: 'Like a Boss'},
-  {id: 16, message: 'So Bhakti, i crazy bell...'},
-  {id: 17, message: 'I proposed you again on your birthday'},
-  {id: 18, message: 'Will you...'},
-  {id: 19, message: '......'},
-  {id: 20, message: '.......'},
-  {id: 21, message: 'Will you marry me ?'},
-  {id: 22, message: 'Ask Bhakti to marry me, \n\n She said yes'},
-];
+import GLOBAL from '../../../../GLOBAL';
+// import {err} from 'react-native-svg/lib/typescript/xml';
+const Users = PlacardJson;
+
+// SOUNDS
+var SoundPlayer = require('react-native-sound');
+var song = null;
 
 export default class App extends React.Component {
   constructor() {
     super();
-
     this.position = new Animated.ValueXY();
     this.state = {
       currentIndex: 0,
@@ -124,6 +98,25 @@ export default class App extends React.Component {
       },
     });
   }
+  componentDidMount(): void {
+    song = new SoundPlayer('kauntuje.mp3', SoundPlayer.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('Error while playing audio 1');
+      } else {
+        if (song !== null) {
+          song.play((success) => {
+            if (!success) {
+              console.log('Error while playing audio 2');
+            }
+          });
+        }
+      }
+    });
+  }
+  componentWillUnmount(): void {
+    song.stop();
+    song = null;
+  }
 
   renderUsers = () => {
     return Users.map((item, i) => {
@@ -137,35 +130,29 @@ export default class App extends React.Component {
             style={[
               this.rotateAndTranslate,
               {
-                height: hp(40),
-                width: wp(100),
+                height: hp(25),
+                width: wp(55),
                 padding: 10,
+                alignSelf: 'center',
+                justifySelf: 'center',
                 position: 'absolute',
+                marginTop: hp(5),
               },
             ]}>
-            {/*<Image*/}
-            {/*  style={{*/}
-            {/*    flex: 1,*/}
-            {/*    height: null,*/}
-            {/*    width: null,*/}
-            {/*    borderRadius: 20,*/}
-            {/*  }}*/}
-            {/*  resizeMode={'contain'}*/}
-            {/*  source={item.uri}*/}
-            {/*/>*/}
             <View
               style={{
                 borderRadius: 50,
-                backgroundColor: '#e1e1e1',
+                backgroundColor: 'rgb(234,243,238)',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: hp(40),
+                justifySelf: 'center',
                 width: '100%',
+                height: '100%',
                 padding: 15,
               }}>
               <Text
                 style={{
-                  fontSize: wp(10),
+                  fontSize: wp(5),
                   fontWeight: '200',
                   textAlign: 'center',
                 }}>
@@ -182,35 +169,29 @@ export default class App extends React.Component {
               {
                 // opacity: this.nextCardOpacity,
                 transform: [{scale: this.nextCardScale}],
-                height: hp(40),
-                width: wp(100),
+                height: hp(25),
+                width: wp(55),
                 padding: 10,
+                alignSelf: 'center',
+                justifySelf: 'center',
                 position: 'absolute',
+                marginTop: hp(5),
               },
             ]}>
-            {/*<Image*/}
-            {/*  style={{*/}
-            {/*    flex: 1,*/}
-            {/*    height: null,*/}
-            {/*    width: null,*/}
-            {/*    borderRadius: 20,*/}
-            {/*  }}*/}
-            {/*  resizeMode={'contain'}*/}
-            {/*  source={item.uri}*/}
-            {/*/>*/}
             <View
               style={{
                 borderRadius: 50,
-                backgroundColor: '#e1e1e1',
+                backgroundColor: 'rgb(234,243,238)',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: hp(40),
+                justifySelf: 'center',
                 width: '100%',
+                height: '100%',
                 padding: 15,
               }}>
               <Text
                 style={{
-                  fontSize: wp(10),
+                  fontSize: wp(5),
                   fontWeight: '200',
                   textAlign: 'center',
                 }}>
@@ -222,22 +203,64 @@ export default class App extends React.Component {
       }
     }).reverse();
   };
-
+  openWhatsapp = () => {
+    let wpMessage =
+      '*Thanks For your auspicious gift* \n' +
+      'This is Awkward but bear with me😅 \n' +
+      'I have been thinking about us 🙈\n\n I know you always said\n' +
+      'Marriage😱 scares the fuck outta me !!!\n' +
+      'And my married friends always said\n' +
+      'Run, You fools!🤣\n' +
+      'So, I always Brushed it off😗....\n' +
+      'Bitch Please, marriage is not for me😋\n' +
+      'But one day i realized\n' +
+      'Nobody makes me happy like you do🥰\n' +
+      'But nobody ever made me feel like that before so my brain said \nimpossible!😣\n' +
+      'And realized that i do want to grow old with you , \n So my heart asked my Brain🙄\n' +
+      'If you like it, why u not put ring💍 on it\n' +
+      'So i thought about it...🤔\n' +
+      'Like a Boss😎\n' +
+      'So Siddharth, i crazy bell...😜\n' +
+      'Will you...🤨\n' +
+      '......\n' +
+      '.......\n' +
+      '*Will you marry me ?*❤️\n' +
+      '*I Love you Siddharth* 💘\n' +
+      '- From *Bhakti* 💘';
+    let url = `https://api.whatsapp.com/send?phone=918160403723&text=${wpMessage}`;
+    song.stop()
+    Linking.openURL(url);
+    this.props.navigation.navigate('Home2Component');
+  };
   render() {
     return (
-      <ImageBackground
-        style={{
-          flex: 1,
-          height: hp(100),
-          backgroundColor: 'white',
-          width: wp(120),
-        }}
-        resizeMode={'cover'}
-        source={require('../../../Assets/Images/PlaCards/plaCard.jpg')}>
-        <View style={{height: hp(30)}} />
-        <View style={{flex: 1}}>{this.renderUsers()}</View>
-        <View style={{height: hp(30)}} />
-      </ImageBackground>
+      <GLOBAL>
+        <View
+          style={{
+            flex: 1,
+            width: wp(100),
+            height: wp(100),
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <ImageBackground
+            style={{
+              flex: 1,
+              height: hp(100),
+              width: wp(100),
+            }}
+            resizeMode={'stretch'}
+            source={require('../../../Assets/Images/PlaCards/man_plaCard.jpeg')}>
+            <View style={{height: hp(30)}} />
+            <View style={{flex: 1}}>
+              {this.state.currentIndex === Users.length
+                ? this.openWhatsapp()
+                : this.renderUsers()}
+            </View>
+            <View style={{height: hp(30)}} />
+          </ImageBackground>
+        </View>
+      </GLOBAL>
     );
   }
 }
